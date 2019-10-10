@@ -1,4 +1,4 @@
-language: JavaScript
+language: node_js
 node_js:
   - "lts/*"
 branches:
