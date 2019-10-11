@@ -1,4 +1,5 @@
-module.exports = {
+const sidebar = require('./sidebar.js')
+const config = {
   configureWebpack: {
     resolve: {
       alias: {
@@ -26,26 +27,27 @@ module.exports = {
   themeConfig: {
     algolia: {
       apiKey: '3c1ce93af8e207632777218a53a83678',
-      indexName: 'prod_notes'
+      indexName: 'notes'
     },
-    repo: 'https://github.com/FredBrock',
-    repoLabel: 'Github',
+    // 假定是 GitHub. 同时也可以是一个完整的 GitLab URL
+    repo: 'FredBrock/blog-notes',
+    // 自定义仓库链接文字。默认从 `themeConfig.repo` 中自动推断为
+    // "GitHub"/"GitLab"/"Bitbucket" 其中之一，或是 "Source"。
+    repoLabel: '查看源码',
+
+    // 以下为可选的编辑链接选项
+
+    // 假如你的文档仓库和项目本身不在一个仓库：
+    docsRepo: 'FredBrock/blog-notes',
+    // 假如文档不是放在仓库的根目录下：
+    docsDir: 'docs',
+    // 假如文档放在一个特定的分支下：
+    docsBranch: 'master',
+    // 默认是 false, 设置为 true 来启用
     editLinks: true,
     // 默认为 "Edit this page"
     editLinkText: '帮助我们改善此页面！',
-    sidebar: true,
-    // sidebar: [
-    //   {
-    //     title: '前端三剑客',
-    //     collapsable: true,
-    //     children: ['/CSS/', '/HTML/', '/JavaScript/']
-    //   },
-    //   {
-    //     title: 'Vue.js',
-    //     collapsable: false,
-    //     children: ['/Vue/', '/Vue/Vuex.md', '/Vue/Vue-Router.md']
-    //   }
-    // ],
+    sidebar,
     nav: [
       { text: 'Home', link: '/' },
       {
@@ -70,7 +72,21 @@ module.exports = {
             link: '/environment/software-list'
           }
         ]
+      },
+      {
+        text: 'Github',
+        link: 'https://github.com/FredBrock'
       }
     ]
   }
 }
+
+if (process.env.NODE_ENV === 'production') {
+  config.themeConfig.algolia = {
+    apiKey: '25626fae796133dc1e734c6bcaaeac3c',
+    indexName: 'docsearch'
+  }
+}
+
+console.log(config)
+module.exports = config
