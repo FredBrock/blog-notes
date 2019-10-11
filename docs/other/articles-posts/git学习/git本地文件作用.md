@@ -1,0 +1,1 @@
+`~/.git-credentials`:用于存放git存放密码的文件
